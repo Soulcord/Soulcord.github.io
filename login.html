@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="./styling/login.css">
+  <script src="https://replit.com/public/js/repl-auth-v2.js"></script>
+
+
 </head>
 
 <body>
@@ -29,9 +32,41 @@
           <span></span>
           Submit
         </a>
+        <button onclick="LoginWithReplit()"> Login </button>
+
+
       </form>
     </div>
   </main>
+  <script type="module">const user = await getUserInfo() </script>
+
+
+  <script>
+    // Add event listener to form submission
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevents the form submission from refreshing the page
+
+      const formData = new FormData(event.target); // Get the form data
+      const response = await fetch('login.php', {
+        method: 'POST',
+        body: formData
+      }); // Send the form data to the PHP script
+
+      if (response.ok) {
+        const result = await response.text(); // Get the response from the PHP script
+        if (result === 'success') {
+          // Redirect the user to the homepage
+          window.location.href = 'index.html';
+        } else {
+          // Display an error message
+          alert('Incorrect username or password');
+        }
+      } else {
+        // Display an error message
+        alert('An error occurred while processing your request');
+      }
+    });
+  </script>
 </body>
 
 </html>

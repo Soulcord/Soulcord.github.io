@@ -1,0 +1,52 @@
+{
+  "gerechten": [
+    { "id": "bestek-g", "name": "BESTEK", "desc": "", "price": 0.60, "allergies": [], "soldout": false, "popular": false },
+    { "id": "telo-bakkeljauw", "name": "Telo bakkeljauw", "desc": "Cassave, bakkeljauw", "price": 10.00, "allergies": ["Selderij", "Vis", "Halal"], "soldout": false, "popular": false },
+    { "id": "bami-grilled-red", "name": "Bami met grilled chicken (red)", "desc": "Bami met grilled chicken (red)", "price": 14.50, "allergies": ["Ei", "Gluten", "Mosterd", "Pinda's", "Selderij", "Soja", "Sulfiet", "Halal"], "soldout": true, "popular": false },
+    { "id": "rijst-gehaktbal", "name": "Rijst gehaktbal (kip) met groenten", "desc": "Groenten: kousenband/spitskool", "price": 16.50, "allergies": ["Ei", "Gluten", "Melk", "Mosterd", "Selderij", "Soja", "Halal"], "soldout": true, "popular": false },
+    { "id": "masoes-kip", "name": "Masoes moksi alesi kip", "desc": "Gerookte kipfilet, zoutvlees en ovenkip", "price": 16.00, "allergies": ["Ei", "Gluten", "Mosterd", "Pinda's", "Selderij", "Soja", "Halal"], "soldout": true, "popular": false },
+    { "id": "masoes-grilled", "name": "Masoes moksi alesi grilled chicken (red)", "desc": "", "price": 16.00, "allergies": ["Mild", "Ei", "Melk", "Mosterd", "Pinda's", "Selderij", "Soja", "Halal"], "soldout": true, "popular": false },
+    { "id": "masoes-zalm", "name": "Masoes moksi alesi met gegrilde zalm", "desc": "Gerookte kipfilet, zoutvlees en gegrilde zalm", "price": 22.00, "allergies": ["Ei", "Gluten", "Mosterd", "Selderij", "Soja", "Vis", "Halal"], "soldout": true, "popular": false }
+  ],
+  "fries": [
+    { "id": "loaded-crispy", "name": "Loaded fries crispy chicken", "desc": "Friet met geraspte kaas, knoflooksaus, Jawel's saus, bosui, parmezaan en crispy chicken", "price": 13.50, "allergies": ["Ei", "Gluten", "Mosterd", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "loaded-garnalen", "name": "Loaded fries met gegrilde garnalen", "desc": "Friet met geraspte kaas, knoflooksaus, Jawel's saus, bosui, parmezaan en gegrilde garnalen", "price": 14.50, "allergies": ["Ei", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "loaded-grilled-red", "name": "Loaded fries grilled chicken (Red)", "desc": "Friet met geraspte kaas, knoflooksaus, Jawel's saus, bosui, parmezaan en gegrilde rode kipfilet", "price": 15.50, "allergies": ["Ei", "Gluten", "Mosterd", "Pinda's", "Selderij", "Sesam", "Soja", "Halal"], "soldout": false, "popular": true },
+    { "id": "loaded-mix", "name": "Loaded fries mix", "desc": "Garnalen, crispy & grilled chicken red", "price": 23.50, "allergies": ["Ei", "Gluten", "Mosterd", "Noten", "Pinda's", "Schaal- en schelpdieren", "Soja", "Halal"], "soldout": false, "popular": true }
+  ],
+  "pasta": [
+    { "id": "pasta-plain", "name": "Pasta plain", "desc": "Roomsaus, chili vlokken, geraspte kaas, parmezaan, bosui, farfalle/fusilli mix", "price": 14.50, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-crispy", "name": "Pasta crispy chicken", "desc": "Roomsaus, chili vlokken, geraspte kaas, parmezaan, bosui, farfalle/fusilli mix, crispy chicken", "price": 16.50, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Mosterd", "Selderij", "Soja", "Halal"], "soldout": false, "popular": true },
+    { "id": "pasta-garnalen", "name": "Pasta met gegrilde garnalen", "desc": "Roomsaus, chili vlokken, geraspte kaas, parmezaan, gegrilde garnalen", "price": 17.50, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-grilled-red", "name": "Pasta met grilled chicken (red)", "desc": "", "price": 19.50, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Mosterd", "Pinda's", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-crispy-garn", "name": "Pasta crispy chicken garnalen", "desc": "", "price": 20.50, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-crispy-garn2", "name": "Pasta met crispy garnalen", "desc": "", "price": 20.00, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Schaal- en schelpdieren", "Selderij"], "soldout": false, "popular": false },
+    { "id": "pasta-2crispy", "name": "Pasta crispy chicken en crispy garnalen", "desc": "", "price": 23.00, "allergies": ["Mild", "Ei", "Gluten", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-zalm", "name": "Pasta met gegrilde zalm", "desc": "", "price": 20.50, "allergies": ["Ei", "Gluten", "Melk", "Mosterd", "Selderij", "Soja", "Vis", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-zalm-crispy", "name": "Pasta met gegrilde zalm en crispy chicken", "desc": "", "price": 23.50, "allergies": ["Ei", "Gluten", "Melk", "Mosterd", "Selderij", "Soja", "Vis", "Halal"], "soldout": false, "popular": false },
+    { "id": "pasta-zalm-garn", "name": "Pasta met gegrilde zalm en garnalen", "desc": "", "price": 24.50, "allergies": ["Ei", "Gluten", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Vis", "Halal"], "soldout": false, "popular": false }
+  ],
+  "extra": [
+    { "id": "crispy-los", "name": "Crispy chicken los (1 stuk)", "desc": "", "price": 3.00, "allergies": ["Ei", "Gluten", "Melk", "Mosterd", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "garnalen-los", "name": "Gegrilde garnalen los (6 stuks)", "desc": "", "price": 4.00, "allergies": ["Mild", "Ei", "Melk", "Mosterd", "Schaal- en schelpdieren", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "crispy-garnalen-los", "name": "Crispy garnalen los (6 stuks)", "desc": "", "price": 6.50, "allergies": ["Mild", "Ei", "Melk", "Schaal- en schelpdieren", "Selderij"], "soldout": false, "popular": false },
+    { "id": "zalm-los", "name": "Gegrilde zalm los (1 stuk)", "desc": "", "price": 7.00, "allergies": ["Ei", "Mosterd", "Selderij", "Soja", "Halal"], "soldout": false, "popular": false },
+    { "id": "extra-pindasaus", "name": "Extra pindasaus", "desc": "", "price": 2.50, "allergies": ["Pinda's"], "soldout": true, "popular": false },
+    { "id": "extra-bestek", "name": "Bestek", "desc": "", "price": 0.60, "allergies": ["Vegan", "Halal"], "soldout": false, "popular": false },
+    { "id": "extra-jawels-saus", "name": "Extra Jawel's saus", "desc": "", "price": 2.00, "allergies": ["Mosterd"], "soldout": false, "popular": false },
+    { "id": "extra-oven-kip", "name": "Extra oven kip (1 stuk)", "desc": "", "price": 3.50, "allergies": ["Ei", "Mosterd", "Pinda's", "Soja", "Halal"], "soldout": true, "popular": false }
+  ],
+  "frisdranken": [
+    { "id": "coca-cola", "name": "Coca-Cola original taste 330ml", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "fanta-orange", "name": "Fanta orange 330ml", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "fernandes-rood", "name": "Fernandes Rood", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "fernandes-oranje", "name": "Fernandes Oranje", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "oasis-tropical", "name": "Oasis Tropical", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "red-bull", "name": "Red Bull", "desc": "", "price": 3.50, "allergies": [], "soldout": false, "popular": false },
+    { "id": "spa-blauw", "name": "Spa Blauw", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "hawai-tropical", "name": "Hawai tropical", "desc": "", "price": 3.00, "allergies": [], "soldout": false, "popular": false },
+    { "id": "fernandes-blauw", "name": "Fernandes Blauw", "desc": "", "price": 3.00, "allergies": [], "soldout": true, "popular": false },
+    { "id": "fernandes-groen", "name": "Fernandes Groen", "desc": "", "price": 3.00, "allergies": [], "soldout": true, "popular": false },
+    { "id": "fernandes-geel", "name": "Fernandes Geel", "desc": "", "price": 3.00, "allergies": [], "soldout": true, "popular": false }
+  ]
+}

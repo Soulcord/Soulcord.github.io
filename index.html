@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jawel's Kitchen — Surinaams eten in Diemen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            jungle: '#1a4731',
+            spice: '#e05c2a',
+            cream: '#fdf6ec',
+            gold: '#f0a500',
+            charcoal: '#1c1c1c',
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-jungle/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="#" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-jungle rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-gold" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+          </div>
+          <span class="font-display font-bold text-xl text-jungle hidden sm:block">Jawel's Kitchen</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="text-charcoal hover:text-spice transition-colors font-medium">Home</a>
+          <a href="#menu" class="text-charcoal hover:text-spice transition-colors font-medium">Menu</a>
+          <a href="#info" class="text-charcoal hover:text-spice transition-colors font-medium">Informatie</a>
+          <a href="#reviews" class="text-charcoal hover:text-spice transition-colors font-medium">Beoordelingen</a>
+          <a href="#contact" class="text-charcoal hover:text-spice transition-colors font-medium">Contact</a>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex items-center gap-1 border border-jungle/20 rounded-full px-2 py-1">
+            <button id="langNL" class="text-sm font-medium px-2 py-1 rounded-full bg-jungle text-cream">NL</button>
+            <button id="langEN" class="text-sm font-medium px-2 py-1 rounded-full text-charcoal hover:bg-jungle/10 transition-colors">EN</button>
+          </div>
+          <button id="cartBtn" class="relative p-2 rounded-full bg-jungle text-cream hover:bg-jungle/90 transition-colors" aria-label="Winkelwagen">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span id="cartBadge" class="absolute -top-1 -right-1 w-5 h-5 bg-spice text-white text-xs font-bold rounded-full items-center justify-center hidden">0</span>
+          </button>
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-jungle/10 transition-colors" aria-label="Menu openen">
+            <svg class="w-6 h-6 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden bg-cream border-t border-jungle/10">
+      <div class="px-4 py-4 space-y-3">
+        <a href="#home" class="block py-2 text-charcoal hover:text-spice transition-colors font-medium mobile-link">Home</a>
+        <a href="#menu" class="block py-2 text-charcoal hover:text-spice transition-colors font-medium mobile-link">Menu</a>
+        <a href="#info" class="block py-2 text-charcoal hover:text-spice transition-colors font-medium mobile-link">Informatie</a>
+        <a href="#reviews" class="block py-2 text-charcoal hover:text-spice transition-colors font-medium mobile-link">Beoordelingen</a>
+        <a href="#contact" class="block py-2 text-charcoal hover:text-spice transition-colors font-medium mobile-link">Contact</a>
+        <div class="flex items-center gap-2 pt-2 border-t border-jungle/10">
+          <button id="langNLMobile" class="text-sm font-medium px-3 py-1 rounded-full bg-jungle text-cream">NL</button>
+          <button id="langENMobile" class="text-sm font-medium px-3 py-1 rounded-full border border-jungle/20 text-charcoal">EN</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <div class="absolute inset-0 tropical-pattern opacity-50"></div>
+    <div class="absolute top-32 right-10 w-64 h-64 bg-spice/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-80 h-80 bg-jungle/10 rounded-full blur-3xl"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div id="statusBadge" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white mb-6 animate-fade-up badge-closed">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+            <span id="statusText">Laden...</span>
+          </div>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-charcoal leading-tight mb-6 animate-fade-up animate-delay-100">
+            Smaken uit <span class="text-spice">Suriname</span>, bezorgd bij jou thuis
+          </h1>
+          <p class="text-lg sm:text-xl text-gray-500 mb-8 animate-fade-up animate-delay-200 max-w-xl mx-auto lg:mx-0">
+            Bezorging only — geen afhaal. Bestel online en geniet van authentiek Surinaams eten in Diemen en omgeving.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up animate-delay-300">
+            <button id="heroOrderBtn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})" class="btn-primary px-8 py-4 rounded-xl font-semibold text-lg">
+              Bestel nu
+            </button>
+            <a href="#menu" class="btn-outline px-8 py-4 rounded-xl font-semibold text-lg text-center">
+              Bekijk menu
+            </a>
+          </div>
+          <p id="closedMessage" class="mt-4 text-red-600 font-medium hidden"></p>
+        </div>
+        <div class="relative animate-fade-up animate-delay-400">
+          <div class="relative aspect-square max-w-md mx-auto">
+            <div class="absolute inset-0 bg-gradient-to-br from-jungle to-jungle/80 rounded-full transform rotate-6 shadow-2xl"></div>
+            <div class="absolute inset-4 bg-gradient-to-br from-gold/20 to-spice/20 rounded-full"></div>
+            <div class="absolute inset-8 flex items-center justify-center">
+              <svg viewBox="0 0 200 200" class="w-full h-full">
+                <ellipse cx="100" cy="100" rx="80" ry="60" fill="#fdf6ec" stroke="#1a4731" stroke-width="3"/>
+                <ellipse cx="85" cy="95" rx="35" ry="25" fill="#fff5e6"/>
+                <path d="M60 85 Q70 70 90 80 Q100 85 95 100 Q90 110 70 105 Q55 100 60 85" fill="#c44d22"/>
+                <path d="M65 88 Q72 78 85 85 Q92 90 88 100" fill="#e05c2a"/>
+                <ellipse cx="120" cy="90" rx="15" ry="10" fill="#22c55e"/>
+                <ellipse cx="125" cy="95" rx="12" ry="8" fill="#16a34a"/>
+                <path d="M70 105 Q80 115 100 110 Q120 105 130 115" fill="none" stroke="#f0a500" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="130" cy="85" r="3" fill="#f0a500"/>
+                <circle cx="140" cy="90" r="2" fill="#f0a500"/>
+              </svg>
+            </div>
+            <div class="absolute -top-4 -right-4 bg-gold text-charcoal px-3 py-1 rounded-full font-bold text-sm transform rotate-12">Halal</div>
+            <div class="absolute -bottom-2 -left-2 bg-spice text-white px-3 py-1 rounded-full font-bold text-sm transform -rotate-12">Vers bereid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Dishes -->
+  <section class="bg-jungle py-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <pattern id="leaves" patternUnits="userSpaceOnUse" width="50" height="50">
+          <path d="M25 5 Q30 15 25 25 Q20 15 25 5" fill="#f0a500" opacity="0.3"/>
+          <path d="M10 35 Q15 45 10 55 Q5 45 10 35" fill="#f0a500" opacity="0.3"/>
+          <path d="M40 35 Q45 45 40 55 Q35 45 40 35" fill="#f0a500" opacity="0.3"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#leaves)"/>
+      </svg>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-cream mb-4">Populaire gerechten</h2>
+        <p class="text-cream/70">De favorieten van onze klanten</p>
+      </div>
+      <div id="popularDishes" class="grid md:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Full Menu -->
+  <section id="menu" class="py-16 lg:py-24 bg-cream relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal mb-4">Ons Menu</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto">Authentieke Surinaamse gerechten, vers bereid en bezorgd aan uw deur</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-2 mb-8 pb-4 border-b border-jungle/10 overflow-x-auto hide-scrollbar">
+        <button class="tab-btn active px-4 py-2 font-medium text-charcoal whitespace-nowrap" data-category="gerechten">Gerechten</button>
+        <button class="tab-btn px-4 py-2 font-medium text-charcoal whitespace-nowrap" data-category="fries">Loaded Fries</button>
+        <button class="tab-btn px-4 py-2 font-medium text-charcoal whitespace-nowrap" data-category="pasta">Pasta's</button>
+        <button class="tab-btn px-4 py-2 font-medium text-charcoal whitespace-nowrap" data-category="extra">Extra</button>
+        <button class="tab-btn px-4 py-2 font-medium text-charcoal whitespace-nowrap" data-category="frisdranken">Frisdranken</button>
+      </div>
+      <div id="menuContainer" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Cultural Section -->
+  <section class="bg-jungle py-20 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <svg class="w-full h-full opacity-10" viewBox="0 0 400 200">
+        <defs>
+          <pattern id="palmPattern" patternUnits="userSpaceOnUse" width="100" height="100">
+            <path d="M50 10 Q55 30 50 50 Q45 30 50 10" fill="#f0a500"/>
+            <path d="M30 60 Q35 80 30 100 Q25 80 30 60" fill="#f0a500"/>
+            <path d="M70 60 Q75 80 70 100 Q65 80 70 60" fill="#f0a500"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#palmPattern)"/>
+      </svg>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center mb-12">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-cream mb-4">Van de markt van Paramaribo tot jouw deur in Diemen</h2>
+        <p class="text-cream/70 max-w-2xl mx-auto">Authentieke ingrediënten en traditionele recepten, met liefde bereid</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gold/20 flex items-center justify-center cultural-stamp text-4xl">🌿</div>
+          <h3 class="font-display text-xl font-bold text-gold mb-2">Cassave</h3>
+          <p class="text-cream/70 text-sm">De basis van veel Surinaamse gerechten, perfect gebakken of gekookt</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gold/20 flex items-center justify-center cultural-stamp text-4xl">🐟</div>
+          <h3 class="font-display text-xl font-bold text-gold mb-2">Bakkeljauw</h3>
+          <p class="text-cream/70 text-sm">Gerookte en gezouten vis, een smaakvolle traditie uit Suriname</p>
+        </div>
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gold/20 flex items-center justify-center cultural-stamp text-4xl">🌶️</div>
+          <h3 class="font-display text-xl font-bold text-gold mb-2">Pepers</h3>
+          <p class="text-cream/70 text-sm">Madame Jeanette en andere pepers voor die authentieke kick</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="py-16 lg:py-24 bg-cream relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-1 mb-4">
+          <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-6 h-6 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-2">Beoordelingen</h2>
+        <p class="text-gray-500">4.0 op basis van 959 beoordelingen</p>
+      </div>
+      <div id="reviewsContainer" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Info & Contact -->
+  <section id="info" class="py-16 lg:py-24 bg-jungle/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div id="contact">
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-8">Informatie & Contact</h2>
+          <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-jungle/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-jungle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div><h3 class="font-semibold text-charcoal">Adres</h3><p class="text-gray-500">Visseringweg 4B, 1112 AS Diemen</p></div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-jungle/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-jungle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <div><h3 class="font-semibold text-charcoal">Telefoon</h3><p class="text-gray-500">06-87031423</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-charcoal mb-4">Openingstijden</h3>
+            <div class="space-y-2">
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Maandag</span><span class="text-gray-500">17:00 - 00:00 (bezorging tot 23:00)</span></div>
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Dinsdag</span><span class="text-gray-500">17:00 - 00:00</span></div>
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Woensdag</span><span class="text-red-600 font-medium">Gesloten</span></div>
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Donderdag</span><span class="text-gray-500">17:00 - 00:00</span></div>
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Vrijdag</span><span class="text-gray-500">17:00 - 00:00</span></div>
+              <div class="flex justify-between py-2 border-b border-gray-100"><span class="text-charcoal">Zaterdag</span><span class="text-gray-500">17:00 - 00:00</span></div>
+              <div class="flex justify-between py-2"><span class="text-charcoal">Zondag</span><span class="text-gray-500">17:00 - 00:00</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl font-bold text-charcoal mb-6">Allergieën informatie</h3>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="allergy-badge text-center py-2">Ei</div>
+              <div class="allergy-badge text-center py-2">Gluten</div>
+              <div class="allergy-badge text-center py-2 bg-green-100 text-green-800">Halal</div>
+              <div class="allergy-badge text-center py-2">Melk</div>
+              <div class="allergy-badge text-center py-2">Mosterd</div>
+              <div class="allergy-badge text-center py-2">Noten</div>
+              <div class="allergy-badge text-center py-2">Pinda's</div>
+              <div class="allergy-badge text-center py-2">Schaal- en schelpdieren</div>
+              <div class="allergy-badge text-center py-2">Selderij</div>
+              <div class="allergy-badge text-center py-2">Sesam</div>
+              <div class="allergy-badge text-center py-2">Soja</div>
+              <div class="allergy-badge text-center py-2">Sulfiet</div>
+              <div class="allergy-badge text-center py-2">Vis</div>
+              <div class="allergy-badge text-center py-2 bg-green-100 text-green-800">Vegan</div>
+              <div class="allergy-badge text-center py-2 bg-orange-100 text-orange-800">Mild</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-jungle py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-jungle" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
+            <span class="font-display font-bold text-xl text-cream">Jawel's Kitchen</span>
+          </div>
+          <p class="text-cream/70 text-sm">Authentiek Surinaams eten, met liefde bereid en bezorgd aan uw deur.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-cream mb-4">Contact</h4>
+          <p class="text-cream/70 text-sm mb-2">Visseringweg 4B, 1112 AS Diemen</p>
+          <p class="text-cream/70 text-sm mb-2">Tel: 06-87031423</p>
+          <p class="text-cream/70 text-sm">Open: 17:00 - 00:00 (Woensdag gesloten)</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-cream mb-4">App downloaden</h4>
+          <a href="https://play.google.com/store/apps/details?id=nl.sitedish.jawels" target="_blank" rel="noopener" class="inline-block">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-12">
+          </a>
+          <p class="text-cream/70 text-sm mt-4">Authentiek Surinaams · Halal · Bezorging</p>
+        </div>
+      </div>
+      <div class="border-t border-cream/20 pt-8 text-center">
+        <p class="text-cream/50 text-sm">2024 Jawel's Kitchen. Alle rechten voorbehouden.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Panel -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300"></div>
+  <div id="cartPanel" class="fixed top-0 right-0 h-full w-full max-w-md bg-cream z-50 transform translate-x-full shadow-2xl flex flex-col transition-transform duration-300">
+    <div class="p-4 border-b border-jungle/10 flex items-center justify-between bg-jungle text-cream">
+      <h2 class="font-display text-xl font-bold">Winkelwagen</h2>
+      <button id="closeCart" class="p-2 hover:bg-white/10 rounded-lg transition-colors" aria-label="Sluiten">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-4 hide-scrollbar hidden"></div>
+    <div id="cartEmpty" class="flex-1 flex flex-col items-center justify-center p-8">
+      <svg class="w-16 h-16 text-jungle/30 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+      <p class="text-gray-500 text-center">Je winkelwagen is leeg</p>
+    </div>
+    <div id="cartFooter" class="border-t border-jungle/10 p-4 bg-white">
+      <div class="mb-4">
+        <div class="flex gap-2">
+          <input type="text" id="promoInput" placeholder="Promo code (probeer JAWELS10)" class="form-input flex-1 px-3 py-2 rounded-lg text-sm">
+          <button id="applyPromo" class="px-4 py-2 bg-jungle text-cream rounded-lg text-sm font-medium hover:bg-jungle/90 transition-colors">Invoeren</button>
+        </div>
+        <p id="promoMessage" class="text-xs mt-1 hidden"></p>
+      </div>
+      <div class="space-y-2 mb-4 text-sm">
+        <div class="flex justify-between"><span class="text-gray-500">Subtotaal</span><span id="cartSubtotal" class="font-medium">€0.00</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">Bezorgkosten</span><span id="cartDelivery" class="font-medium">Wordt bepaald bij afrekenen</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">Servicekosten</span><span class="font-medium">€0.25</span></div>
+        <div id="discountRow" class="flex justify-between text-green-600 hidden"><span>Korting (10%)</span><span id="cartDiscount">-€0.00</span></div>
+        <div id="tipRow" class="flex justify-between hidden"><span class="text-gray-500">Fooi</span><span id="cartTip" class="font-medium">€0.00</span></div>
+        <div class="flex justify-between text-lg font-bold pt-2 border-t border-gray-200"><span>Totaal</span><span id="cartTotal">€0.25</span></div>
+      </div>
+      <button id="checkoutBtn" class="btn-primary w-full py-3 rounded-xl font-semibold text-lg" disabled>
+        Naar bestellen
+      </button>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 hidden">
+    <div class="modal-overlay absolute inset-0" onclick="closeCheckout()"></div>
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+      <div class="bg-cream rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <!-- Step 1 -->
+        <div id="checkoutStep1">
+          <div class="bg-jungle text-cream p-6 rounded-t-2xl">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="font-display text-2xl font-bold">Stap 1 van 2 — Bezorggegevens</h2>
+              <button onclick="closeCheckout()" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div class="flex gap-2">
+              <button id="particulierBtn" class="flex-1 py-2 px-4 rounded-lg bg-gold text-charcoal font-medium transition-colors">Particulier</button>
+              <button id="bedrijfBtn" class="flex-1 py-2 px-4 rounded-lg bg-white/10 text-cream font-medium hover:bg-white/20 transition-colors">Bedrijf</button>
+            </div>
+          </div>
+          <form id="deliveryForm" class="p-6 space-y-4">
+            <div id="bedrijfsnaamField" class="hidden">
+              <label class="block text-sm font-medium text-charcoal mb-1">Bedrijfsnaam</label>
+              <input type="text" name="bedrijfsnaam" class="form-input w-full px-4 py-3 rounded-lg">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Voornaam *</label>
+                <input type="text" name="voornaam" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Achternaam *</label>
+                <input type="text" name="achternaam" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="col-span-2">
+                <label class="block text-sm font-medium text-charcoal mb-1">Adres *</label>
+                <input type="text" name="adres" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Huisnr. *</label>
+                <input type="text" name="huisnummer" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Postcode *</label>
+                <input type="text" name="postcode" required placeholder="1234 AB" class="form-input w-full px-4 py-3 rounded-lg uppercase" maxlength="7">
+                <p id="postcodeError" class="text-red-500 text-xs mt-1 hidden">Wij bezorgen helaas niet in uw postcode gebied</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Woonplaats *</label>
+                <input type="text" name="woonplaats" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Telefoon *</label>
+                <input type="tel" name="telefoon" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Dit veld is verplicht</p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">E-mail *</label>
+                <input type="email" name="email" required class="form-input w-full px-4 py-3 rounded-lg">
+                <p class="field-error text-red-500 text-xs mt-1 hidden">Vul een geldig e-mailadres in</p>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-1">Bezorgtijd</label>
+              <select name="bezorgtijd" id="deliveryTimeSelect" class="form-input w-full px-4 py-3 rounded-lg">
+                <option value="">Zo snel mogelijk</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-1">Opmerking</label>
+              <textarea name="opmerking" rows="2" class="form-input w-full px-4 py-3 rounded-lg" placeholder="Allergieën, bijzonderheden, etc."></textarea>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="nieuwsbrief" name="nieuwsbrief" class="w-4 h-4 rounded border-gray-300 text-jungle focus:ring-jungle">
+              <label for="nieuwsbrief" class="text-sm text-gray-500">Ik wil de nieuwsbrief ontvangen</label>
+            </div>
+            <div class="flex items-start gap-2">
+              <input type="checkbox" id="voorwaarden" name="voorwaarden" required class="w-4 h-4 mt-1 rounded border-gray-300 text-jungle focus:ring-jungle">
+              <label for="voorwaarden" class="text-sm text-gray-500">Ik ga akkoord met de <a href="#" class="text-spice underline">algemene voorwaarden</a> *</label>
+            </div>
+            <div id="zoneSubmitError" class="bg-red-50 border border-red-200 rounded-lg p-3 hidden">
+              <p class="text-red-600 text-sm font-medium">⚠️ Ongeldige postcode</p>
+              <p class="text-red-500 text-xs mt-1">Wij bezorgen helaas niet in uw postcodegebied. Controleer de postcode en probeer opnieuw.</p>
+            </div>
+            <button type="submit" class="btn-primary w-full py-4 rounded-xl font-semibold text-lg">
+              Doorgaan naar betaling →
+            </button>
+          </form>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="checkoutStep2" class="hidden">
+          <div class="bg-jungle text-cream p-6 rounded-t-2xl">
+            <div class="flex items-center justify-between mb-2">
+              <button onclick="goToStep1()" class="flex items-center gap-2 text-cream/80 hover:text-cream transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                Terug
+              </button>
+              <h2 class="font-display text-2xl font-bold">Stap 2 van 2 — Betaling</h2>
+              <button onclick="closeCheckout()" class="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6 space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">Fooi toevoegen</label>
+              <div class="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                <button class="tip-btn active-tip px-3 py-2 border-2 border-jungle bg-jungle/5 rounded-lg text-sm font-medium" data-tip="0">Geen</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="0.5">€0.50</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="1">€1.00</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="1.5">€1.50</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="2">€2.00</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="2.5">€2.50</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="3">€3.00</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="3.5">€3.50</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="4">€4.00</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="5">€5.00</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="7.5">€7.50</button>
+                <button class="tip-btn px-3 py-2 border-2 border-jungle/20 rounded-lg text-sm font-medium hover:border-jungle transition-colors" data-tip="10">€10.00</button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-charcoal mb-2">Betaalwijze</label>
+              <div class="space-y-2">
+                <label class="flex items-center gap-3 p-3 border-2 border-jungle rounded-lg cursor-pointer bg-jungle/5">
+                  <input type="radio" name="payment" value="contant" class="w-4 h-4 text-jungle" checked>
+                  <span class="font-medium">Contant</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 border-2 border-jungle/20 rounded-lg cursor-pointer hover:border-jungle transition-colors">
+                  <input type="radio" name="payment" value="ideal" class="w-4 h-4 text-jungle">
+                  <span class="font-medium">iDEAL</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 border-2 border-jungle/20 rounded-lg cursor-pointer hover:border-jungle transition-colors">
+                  <input type="radio" name="payment" value="creditcard" class="w-4 h-4 text-jungle">
+                  <span class="font-medium">Creditcard</span>
+                </label>
+              </div>
+            </div>
+            <div id="contantDetails" class="bg-jungle/5 rounded-lg p-4">
+              <label class="block text-sm font-medium text-charcoal mb-1">Gepast bedrag</label>
+              <input type="text" name="contant_bedrag" placeholder="Bijv. €50" class="form-input w-full px-4 py-3 rounded-lg">
+              <p class="text-xs text-gray-500 mt-1">Het bedrag dat u contant betaalt bij aflevering</p>
+            </div>
+            <div id="idealDetails" class="hidden bg-jungle/5 rounded-lg p-4">
+              <label class="block text-sm font-medium text-charcoal mb-1">Selecteer uw bank</label>
+              <select name="bank" class="form-input w-full px-4 py-3 rounded-lg">
+                <option value="">Kies uw bank</option>
+                <option>ABN AMRO</option><option>ING</option><option>Rabobank</option>
+                <option>ASN Bank</option><option>bunq</option><option>Knab</option>
+                <option>RegioBank</option><option>Revolut</option><option>SNS</option>
+                <option>Triodos Bank</option><option>Van Lanschot</option>
+              </select>
+            </div>
+            <div id="creditcardDetails" class="hidden bg-jungle/5 rounded-lg p-4 space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Kaartnummer</label>
+                <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="form-input w-full px-4 py-3 rounded-lg" maxlength="19">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Naam op kaart</label>
+                <input type="text" name="card_name" class="form-input w-full px-4 py-3 rounded-lg">
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-charcoal mb-1">Vervaldatum</label>
+                  <input type="text" name="card_expiry" placeholder="MM/JJ" class="form-input w-full px-4 py-3 rounded-lg" maxlength="5">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-charcoal mb-1">CVV</label>
+                  <input type="text" name="card_cvv" placeholder="123" class="form-input w-full px-4 py-3 rounded-lg" maxlength="4">
+                </div>
+              </div>
+            </div>
+            <div class="bg-white border-2 border-jungle/10 rounded-xl p-4">
+              <h3 class="font-semibold text-charcoal mb-3">Besteloverzicht</h3>
+              <div id="orderSummary" class="space-y-2 text-sm mb-3"></div>
+              <div class="border-t border-gray-200 pt-3 space-y-1">
+                <div class="flex justify-between text-sm"><span class="text-gray-500">Subtotaal</span><span id="summarySubtotal">€0.00</span></div>
+                <div class="flex justify-between text-sm"><span class="text-gray-500">Bezorgkosten</span><span id="summaryDelivery">€0.00</span></div>
+                <div class="flex justify-between text-sm"><span class="text-gray-500">Servicekosten</span><span>€0.25</span></div>
+                <div id="summaryDiscountRow" class="flex justify-between text-sm text-green-600 hidden"><span>Korting (10%)</span><span id="summaryDiscount">-€0.00</span></div>
+                <div class="flex justify-between text-sm"><span class="text-gray-500">Fooi</span><span id="summaryTip">€0.00</span></div>
+                <div class="flex justify-between text-lg font-bold pt-2 border-t border-gray-200"><span>Totaal</span><span id="summaryTotal">€0.00</span></div>
+              </div>
+            </div>
+            <button id="placeOrderBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-lg">
+              ✓ Bestelling plaatsen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirmationModal" class="fixed inset-0 z-50 hidden">
+    <div class="modal-overlay absolute inset-0"></div>
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+      <div class="bg-cream rounded-2xl shadow-2xl max-w-lg w-full p-8 text-center">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h2 class="font-display text-3xl font-bold text-charcoal mb-2">Bedankt voor je bestelling!</h2>
+        <p class="text-gray-500 mb-6">Je bestelling is succesvol geplaatst. Je ontvangt een bevestiging per e-mail.</p>
+        <div class="bg-jungle/5 rounded-xl p-4 mb-6">
+          <p class="text-sm text-gray-500 mb-1">Ordernummer</p>
+          <p id="orderNumber" class="text-2xl font-bold text-jungle">#00000</p>
+        </div>
+        <div class="bg-white border border-jungle/10 rounded-xl p-4 mb-6 text-left">
+          <h3 class="font-semibold text-charcoal mb-2">Bezorging</h3>
+          <p id="confirmationAddress" class="text-sm text-gray-500 mb-2"></p>
+          <p class="text-sm"><span class="text-gray-500">Geschatte aankomsttijd:</span> <span id="confirmationTime" class="font-semibold text-jungle"></span></p>
+        </div>
+        <div class="bg-white border border-jungle/10 rounded-xl p-4 mb-6 text-left max-h-48 overflow-y-auto">
+          <h3 class="font-semibold text-charcoal mb-2">Je bestelling</h3>
+          <div id="confirmationItems" class="space-y-1 text-sm"></div>
+          <div class="border-t border-gray-100 mt-2 pt-2 flex justify-between font-bold">
+            <span>Totaal betaald</span><span id="confirmationTotal" class="text-jungle"></span>
+          </div>
+        </div>
+        <button onclick="closeConfirmation()" class="btn-primary w-full py-4 rounded-xl font-semibold text-lg">Sluiten</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

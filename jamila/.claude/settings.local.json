@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import json; json.load\\(open\\('c:/Users/mikre/Documents/projects/sites/jamila/menu.json'\\)\\); print\\('valid JSON'\\)\")"
+    ]
+  }
+}

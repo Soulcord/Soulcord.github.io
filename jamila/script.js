@@ -518,18 +518,65 @@ function updateOrderSummary() {
   document.getElementById('summaryDiscountRow').classList.toggle('hidden', !promoApplied);
 }
 
-function placeOrder() {
-  const orderNum = Math.floor(10000 + Math.random() * 90000);
+async function placeOrder() {
+  const btn = document.getElementById('placeOrderBtn');
   const subtotal = cart.reduce((s,i) => s + i.price * i.quantity, 0);
   const promoDiscount = promoApplied ? subtotal * 0.1 : 0;
   const fee = deliveryZone ? (deliveryZone.freeAbove && subtotal >= deliveryZone.freeAbove ? 0 : deliveryZone.fee) : 0;
   const total = subtotal + fee + 0.25 - promoDiscount + selectedTip;
 
-  document.getElementById('orderNumber').textContent = `#${orderNum}`;
+  const paymentMethod = document.querySelector('[name="payment"]:checked').value;
+
+  const orderPayload = {
+    customer: { ...deliveryInfo },
+    items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity })),
+    payment: {
+      method: paymentMethod,
+      ...(paymentMethod === 'ideal'    && { bank:   document.querySelector('[name="bank"]').value }),
+      ...(paymentMethod === 'contant'  && { amount: document.querySelector('[name="contant_bedrag"]').value }),
+    },
+    tip: selectedTip,
+    promoApplied,
+    subtotal,
+    deliveryFee: fee,
+    serviceFee: 0.25,
+    discount: promoDiscount,
+    total,
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Bestelling wordt geplaatst…';
+
+  let orderNumber;
+  try {
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderPayload),
+    });
+    if (!res.ok) throw new Error(`Server responded ${res.status}`);
+    ({ orderNumber } = await res.json());
+  } catch (err) {
+    console.error('Order failed:', err);
+    btn.disabled = false;
+    btn.textContent = '✓ Bestelling plaatsen';
+
+    // Show inline error above the button
+    const existing = document.getElementById('orderApiError');
+    if (existing) existing.remove();
+    const errEl = document.createElement('div');
+    errEl.id = 'orderApiError';
+    errEl.className = 'bg-red-50 border border-red-200 rounded-lg p-3';
+    errEl.innerHTML = '<p class="text-red-600 text-sm font-medium">⚠️ Er is een fout opgetreden. Probeer opnieuw of bel ons op 06-87031423.</p>';
+    btn.parentNode.insertBefore(errEl, btn);
+    return;
+  }
+
+  // Populate confirmation modal
+  document.getElementById('orderNumber').textContent = `#${orderNumber}`;
   document.getElementById('confirmationAddress').textContent =
     `${deliveryInfo.adres} ${deliveryInfo.huisnummer}, ${deliveryInfo.postcode} ${deliveryInfo.woonplaats}`;
 
-  // Estimated delivery
   const selectedTime = deliveryInfo.bezorgtijd;
   if (selectedTime) {
     const [hh, mm] = selectedTime.split(':').map(Number);
@@ -550,7 +597,9 @@ function placeOrder() {
   document.getElementById('confirmationModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // Reset cart
+  // Reset button and cart
+  btn.disabled = false;
+  btn.textContent = '✓ Bestelling plaatsen';
   cart = [];
   promoApplied = false;
   selectedTip = 0;
